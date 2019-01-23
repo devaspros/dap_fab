@@ -1,5 +1,5 @@
 /*===================================================================
-=            DAP FAB : Material Design Floating Action Button            =
+=            DAP FAB : Material Design Floating Action Button       =
 ===================================================================*/
 /*
  * Copyright 2019 Dev As Pros
@@ -58,33 +58,48 @@
 
       if (base.links.length > 0) {
         main_btn = base.links[0];
-        color_style = (main_btn.color) ? "color:" + main_btn.color + ";" : "";
-        bg_color_style = (main_btn.bgcolor) ? "background-color:" + main_btn.bgcolor + ";" : "";
-        main_btn_dom = "<button data-link-href='"+((main_btn.url)?main_btn.url:"")+"' data-link-target='"+((main_btn.target)?main_btn.target:"")+"' class='kc_fab_main_btn' style='"+bg_color_style+"'><span style='"+color_style+"'>"+main_btn.icon+"</span></button>";
+        color_style = (main_btn.color) ? `color: ${main_btn.color};` : "";
+        bg_color_style = (main_btn.bgcolor) ? `background-color: ${main_btn.bgcolor};` : "";
+        main_btn_dom = `<button 
+          data-link-href='${(main_btn.url) ? main_btn.url : ""}'
+          data-link-target='${(main_btn.target) ? main_btn.target : ""}'
+          class='kc_fab_main_btn'
+          style='${bg_color_style}'>
+            <span style=${color_style}>${main_btn.icon}</span>
+        </button>`;
          
         sub_fab_btns_dom = "";
         base.links.shift();
 
         /* Loop through the remaining links array */
         for (var i = 0; i < base.links.length; i++) {
-          color_style = (base.links[i].color) ? "color:" + base.links[i].color + ";" : "";
-          bg_color_style = (base.links[i].bgcolor) ? "background-color:" + base.links[i].bgcolor + ";" : "";
+          color_style = (base.links[i].color) ? `color: ${base.links[i].color};` : "";
+          bg_color_style = (base.links[i].bgcolor) ? `background-color: ${base.links[i].bgcolor};` : "";
 
-          //get element ID if exists
-          id_elem = "";
-          if( typeof(base.links[i].id) != "undefined" ){
-              id_elem = "id='" + base.links[i].id + "'";
+          let id_elem = "";
+          if(typeof(base.links[i].id) != "undefined") {
+            id_elem = `id='${base.links[i].id}'`;
           }
-          sub_fab_btns_dom += "<div><button " + id_elem + " data-link-title='" + base.links[i].title + "' data-link-href='" + (base.links[i].url ? base.links[i].url :"") + "' data-link-target='" + ((base.links[i].target) ? base.links[i].target:"") + "' class='sub_fab_btn' style='" + bg_color_style + "'><span style='" + color_style + "'>" + base.links[i].icon + "</span></button></div>";  
+          sub_fab_btns_dom += `<div>
+            <button
+                ${id_elem}
+                data-link-title='${base.links[i].title}'
+                data-link-href='${(base.links[i].url) ? base.links[i].url : ""}'
+                data-link-target='${(base.links[i].target) ? base.links[i].target : ""}'
+                class='sub_fab_btn'
+                style='${bg_color_style}'>
+              <span style='${color_style}'>${base.links[i].icon}</span>
+            </button>
+          </div>`;
         }
 
-        sub_fab_btns_dom = "<div class='sub_fab_btns_wrapper'>" + sub_fab_btns_dom + "</div>";
+        sub_fab_btns_dom = `<div class='sub_fab_btns_wrapper'>${sub_fab_btns_dom}</div>`;
         base.$el.append(sub_fab_btns_dom).append(main_btn_dom);
       } else {
         if (typeof console == "undefined") {
           window.console = {
             log: function (msg) {
-                alert(msg);
+              alert(msg);
             }
           };
         }
@@ -97,8 +112,8 @@
       sub_fab_btns = base.$el.find(".sub_fab_btns_wrapper");
 
       main_fab_btn.click(function(e) {
-        if ($(this).attr('data-link-href').length > 0){
-          if ($(this).attr('data-link-target')){
+        if ($(this).attr('data-link-href').length > 0) {
+          if ($(this).attr('data-link-target')) {
             window.open($(this).attr('data-link-href'), $(this).attr('data-link-target'));
           }else{
             window.location.href = $(this).attr('data-link-href');
@@ -123,15 +138,15 @@
              
         ink = $(this).find(".ink");
          
-        if(!ink.height() && !ink.width()){
+        if(!ink.height() && !ink.width()) {
           d = Math.max($(this).outerWidth(), $(this).outerHeight());
           ink.css({height: d, width: d});
         }
          
-        x = e.pageX - $(this).offset().left - ink.width()/2;
-        y = e.pageY - $(this).offset().top - ink.height()/2;
+        x = e.pageX - $(this).offset().left - ink.width() / 2;
+        y = e.pageY - $(this).offset().top - ink.height() / 2;
          
-        ink.css({top: y+'px', left: x+'px'}).addClass("animate");
+        ink.css({top: y + 'px', left: x + 'px'}).addClass("animate");
       });
 
       sub_fab_btns.find('.sub_fab_btn').on('mousedown', function(e) {
@@ -157,7 +172,7 @@
       });  
     };
       
-    // Sample Function, Uncomment to use
+    // Sample function, uncomment to use
     // base.functionName = function(paramaters) {
     // 
     // };
