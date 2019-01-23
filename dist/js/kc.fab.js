@@ -144,29 +144,32 @@
         }
       });
 
-      main_fab_btn.focusout(function(){
-        //sub_fab_btns.removeClass('show');
-        $(".kc_fab_overlay").remove();
+      sub_fab_btns.find('.sub_fab_btn').on('click', function() {
+        /*
+          Instead of removing the class when main_fab_btn losses focus
+          do it when any of the sub_fab_btns is clicked.
+        */
+        sub_fab_btns.removeClass('show');
       });
-      
-      // Put your initialization code here
+
+      main_fab_btn.focusout(function() {
+        $(".kc_fab_overlay").remove();
+      });  
     };
       
     // Sample Function, Uncomment to use
-    // base.functionName = function(paramaters){
+    // base.functionName = function(paramaters) {
     // 
     // };
-      
-    // Run initializer
+
     base.init();
   };
   
   $.kc.fab.defaultOptions = {};
   
-  $.fn.kc_fab = function(links, options){
-    return this.each(function(){
+  $.fn.kc_fab = function(links, options) {
+    return this.each(function() {
       (new $.kc.fab(this, links, options));
     });
   };
-    
 })(jQuery);
